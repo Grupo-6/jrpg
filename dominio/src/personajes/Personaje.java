@@ -3,7 +3,7 @@ package personajes;
 import java.util.Scanner;
 
 public abstract class Personaje implements Atacable {
-
+	protected String alias;
 	protected int energia = 100;
 	protected int salud = 100;
 	protected int lvl=1;
@@ -28,6 +28,19 @@ public abstract class Personaje implements Atacable {
 			energia -= calcularPuntosDeAtaque();
 			despuesDeAtacar();
 		}
+	}
+	public final void insertarAlias(){
+		Scanner entrada = new Scanner (System.in);
+		System.out.println("inserte alias");
+		alias=entrada.nextLine();
+		entrada.close();
+		
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 	public final void lvlUp(){
 		
@@ -66,6 +79,36 @@ public abstract class Personaje implements Atacable {
 				xp=this.experiencia-this.expMax;
 			}
 		}
+	}
+	public int getAtaque() {
+		return ataque;
+	}
+	public void setAtaque(int ataque) {
+		this.ataque = ataque;
+	}
+	public int getDefensa() {
+		return defensa;
+	}
+	public void setDefensa(int defensa) {
+		this.defensa = defensa;
+	}
+	public int getVelocidad() {
+		return velocidad;
+	}
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+	public int getLvl() {
+		return lvl;
+	}
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+	public int getExperiencia() {
+		return experiencia;
+	}
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
 	}
 	@Override
 	public void serAtacado(int danio) {
