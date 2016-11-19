@@ -1,0 +1,3 @@
+UDP: trabaja bajo nivel, programar mucho
+TCP: escribe y  recibe como un archivo, muy abstracto.
+el cliente lo envia al server , 

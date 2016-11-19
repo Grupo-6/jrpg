@@ -10,11 +10,15 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Graficos.Font;
 import Graficos.Pantalla;
 import Graficos.SpriteSheet;
+import entidad.Elfo;
+import entidad.Humano;
 import entidad.Jugador;
+import entidad.Orco;
 import nivel.Nivel;
 
 public class Juego extends Canvas implements Runnable {
@@ -132,7 +136,17 @@ public class Juego extends Canvas implements Runnable {
 		screen=new Pantalla(WIDTH,HEIGHT,new SpriteSheet("/sprite_sheet.png"));
 		input = new InputHandler(this);//creas el input handler
 		level = new Nivel(64,64);
-		jugador=new Jugador( level, x, y,input);
+		String raza;
+		do{
+		 raza=JOptionPane.showInputDialog(this,"Ingrese raza(humano,orco,elfo)");}
+		while(!raza.equals("humano") && !raza.equals("elfo") && !raza.equals("orco"));
+		if(raza.equals("humano"))
+		jugador=new Humano( level, x, y,input,JOptionPane.showInputDialog(this,"Ingrese nombre de Usuario"));
+		if(raza.equals("elfo"))
+		jugador=new Elfo( level, x, y,input,JOptionPane.showInputDialog(this,"Ingrese nombre de Usuario"));
+		if(raza.equals("orco"))
+		jugador=new Orco( level, x, y,input,JOptionPane.showInputDialog(this,"Ingrese nombre de Usuario"));
+		
 		level.addEntidad(jugador);
 		
 	

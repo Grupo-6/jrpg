@@ -1,6 +1,7 @@
 package entidad;
 
 import nivel.Nivel;
+import nivel.Tile;
 
 public abstract class Mob extends Entidad {
 
@@ -44,6 +45,20 @@ public abstract class Mob extends Entidad {
 	
 	public String getNombre(){
 		return nombre;
+	}
+	protected boolean isSolidTile(int xa , int ya,int x,int y){
+		
+		if(nivel==null){
+			return false;
+		}
+		Tile lastTile=nivel.getTile((this.x+x)>>3,(this.y +y)>>3);
+		Tile newTile = nivel.getTile((this.x+x+xa)>>3,(this.y+y+ya)>>3);
+		if(!lastTile.equals(newTile)&& newTile.isSolid()){
+			return true;
+		}
+		return false;
+		
+		
 	}
 	
 }
