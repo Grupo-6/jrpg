@@ -8,7 +8,7 @@ public abstract class Tile {
 	public static final Tile[] tiles = new Tile[256];//max can de tiles posible
 	public static final Tile VOID = new TileBase(0,0,0,Colours.get(000, -1, -1, -1));
 	public static final Tile STONE = new TileBase(1,1,0,Colours.get(-1,333,-1,-1));
-	public static final Tile GRASS = new TileBase(2,2,0,Colours.get(-1,131,141,-1));;
+	public static final Tile GRASS = new TileBase(2,2,0,Colours.get(-1,132,280,-1));;
 	
 	protected byte id;
 	protected boolean solid;//colision

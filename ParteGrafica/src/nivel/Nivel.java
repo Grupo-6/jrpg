@@ -1,6 +1,10 @@
 package nivel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Graficos.Pantalla;
+import entidad.Entidad;
 import juego.Colours;
 
 public class Nivel {
@@ -8,7 +12,7 @@ public class Nivel {
 	private byte[]tiles; // array de ids para que tile esta en esa coordenada
 	public int width;
 	public int height;
-	
+	public List<Entidad> entidades = new ArrayList<Entidad>();
 	public Nivel(int width,int height){
 		tiles = new byte[width*height];
 		this.width=width;
@@ -27,7 +31,9 @@ public class Nivel {
 		}
 	}
 	public void tick(){
-		
+		for(Entidad e : entidades){
+			e.tick();
+		}
 	}
 	public void renderTiles(Pantalla screen,int xOffset,int yOffset){
 		if(xOffset < 0)xOffset =0;
@@ -42,9 +48,24 @@ public class Nivel {
 			}
 		}
 	}
+	
+	public void renderEntidades(Pantalla pantalla){
+		for(Entidad e : entidades){
+			e.render(pantalla);
+		}
+		
+		
+	}
+	
 	private Tile getTile(int x, int y) {
 		if(x<0|| x> width || y<0||y>height)return Tile.VOID;
 		return Tile.tiles[tiles[x+y*width]];
 		
 	}
+	
+	public void addEntidad(Entidad entidad){
+		this.entidades.add(entidad);
+	}
+	
+	
 }

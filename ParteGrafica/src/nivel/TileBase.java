@@ -15,7 +15,7 @@ public class TileBase extends Tile {
 
 	@Override
 	public void render(Pantalla screen, Nivel nivel, int x, int y) {
-		screen.render(x, y, tileId, tileColor);
+		screen.render(x, y, tileId, tileColor,0x00,1);
 		
 	}
 

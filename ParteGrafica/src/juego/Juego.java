@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import Graficos.Font;
 import Graficos.Pantalla;
 import Graficos.SpriteSheet;
+import entidad.Jugador;
 import nivel.Nivel;
 
 public class Juego extends Canvas implements Runnable {
@@ -39,6 +40,9 @@ public class Juego extends Canvas implements Runnable {
 	
 	public InputHandler input;
 	public Nivel level;
+	
+	public Jugador jugador;
+	
 	
 	private int x=0,y=0;
 	
@@ -128,6 +132,9 @@ public class Juego extends Canvas implements Runnable {
 		screen=new Pantalla(WIDTH,HEIGHT,new SpriteSheet("/sprite_sheet.png"));
 		input = new InputHandler(this);//creas el input handler
 		level = new Nivel(64,64);
+		jugador=new Jugador( level, x, y,input);
+		level.addEntidad(jugador);
+		
 	
 	}
 	
@@ -142,11 +149,6 @@ public class Juego extends Canvas implements Runnable {
 
 	public void tick(){//updatea el juego, parecido al update de unity
 		tickCount++;
-		if(input.up.isPressed()){y--;}
-		if(input.down.isPressed()){y++;}
-		if(input.left.isPressed()){x--;}
-		if(input.right.isPressed()){x++;}
-		
 		level.tick();
 		
 	}
@@ -157,8 +159,8 @@ public class Juego extends Canvas implements Runnable {
 			createBufferStrategy(3);//triple buffer, reduce el tearing
 			return;
 		}
-		int xOffset=x-(screen.width/2);//player centrado
-		int yOffset = y-(screen.height/2);
+		int xOffset=jugador.x-(screen.width/2);//player centrado
+		int yOffset = jugador.y-(screen.height/2);
 		
 		level.renderTiles(screen, xOffset, yOffset);
 		
@@ -181,12 +183,14 @@ public class Juego extends Canvas implements Runnable {
 		}*///descomentar si no llego
 		//rendereo despues del lvl
 		String msj= "A Generic JRPG Game";
-		Font.render(msj, screen, screen.xOffset+screen.width/2-(msj.length()*8)/2, screen.yOffset, Colours.get(-1,-1,-1,000));//000 negro poner como background(primer colo puesto en -1 para q sea invisible)
+		Font.render(msj, screen, screen.xOffset+screen.width/2-(msj.length()*8)/2, screen.yOffset, Colours.get(-1,-1,-1,000),1);//000 negro poner como background(primer colo puesto en -1 para q sea invisible)
 		
+		level.renderEntidades(screen);
 		for(int y=0;y<screen.height;y++){
 			for(int x = 0;x<screen.width;x++){
 				int colourCode = screen.pixels[x+y*screen.width];
-				if(colourCode<255)pixels[x+y*WIDTH]=colours[colourCode];
+				if(colourCode<255)
+					pixels[x+y*WIDTH]=colours[colourCode];
 			}
 		}
 		
