@@ -1,5 +1,0 @@
-username: rodrigo
-pass: terraza
-
-username: juan
-pass: ghio
